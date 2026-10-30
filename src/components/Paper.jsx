@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Icon, Reveal, stagger, riseItem } from './ui.jsx'
 
 /* =========================================================
@@ -439,10 +440,10 @@ function FaqItem({ q, a }) {
    FOOTER
    ========================================================= */
 const cols = [
-  { h: 'Product', items: ['Plans', 'Form library', 'Plugins', 'API status'] },
-  { h: 'Resources', items: ['Docs', 'Integration guides', 'Changelog', 'Build with AI'] },
-  { h: 'Company', items: ['Blog', 'Team', 'Customer stories', 'Contact'] },
-  { h: 'Legal', items: ['Privacy policy', 'Terms of service', 'Security', 'DPA'] },
+  { h: 'Product', items: [{ label: 'Pricing', to: '/pricing' }, { label: 'Docs', to: '/docs' }, { label: 'Form library', to: '/docs' }, { label: 'API status', to: '/docs' }] },
+  { h: 'Resources', items: [{ label: 'Docs', to: '/docs' }, { label: 'Integration guides', to: '/docs' }, { label: 'Changelog', to: '/docs' }, { label: 'Build with AI', to: '/docs' }] },
+  { h: 'Company', items: [{ label: 'Blog', to: '/contact' }, { label: 'Team', to: '/contact' }, { label: 'Customer stories', to: '/contact' }, { label: 'Contact', to: '/contact' }] },
+  { h: 'Legal', items: [{ label: 'Privacy policy', to: '/contact' }, { label: 'Terms of service', to: '/contact' }, { label: 'Security', to: '/contact' }, { label: 'DPA', to: '/contact' }] },
 ]
 
 export function Footer() {
@@ -451,12 +452,12 @@ export function Footer() {
       <div className="wrap">
         <div className="footer-grid">
           <div>
-            <a className="brand" href="#top">
+            <Link className="brand" to="/">
               <span className="brand-mark">
                 <span />
               </span>
               Formlane
-            </a>
+            </Link>
             <p className="footer-blurb">
               The production-ready form backend. Storage, deliverability, spam protection and
               integrations — handled.
@@ -467,8 +468,8 @@ export function Footer() {
               <h5>{c.h}</h5>
               <ul>
                 {c.items.map((i) => (
-                  <li key={i}>
-                    <a href="#top">{i}</a>
+                  <li key={i.label}>
+                    <Link to={i.to}>{i.label}</Link>
                   </li>
                 ))}
               </ul>
