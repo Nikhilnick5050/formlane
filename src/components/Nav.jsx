@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link, NavLink } from 'react-router-dom'
 import { Icon } from './ui.jsx'
 
 const links = [
-  { label: 'Product', href: '#product' },
-  { label: 'Features', href: '#features' },
-  { label: 'How it works', href: '#how' },
-  { label: 'Customers', href: '#customers' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'Product', href: '/#product' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Docs', href: '/docs' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 export default function Nav() {
@@ -30,28 +31,38 @@ export default function Nav() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       >
         <div className="wrap nav-inner">
-          <a className="brand" href="#top">
+          <Link className="brand" to="/">
             <span className="brand-mark">
               <span />
             </span>
             Formlane
-          </a>
+          </Link>
 
           <nav className="nav-links">
-            {links.map((l) => (
-              <a key={l.label} className="nav-link" href={l.href}>
-                {l.label}
-              </a>
-            ))}
+            {links.map((l) =>
+              l.href.startsWith('/#') ? (
+                <Link key={l.label} className="nav-link" to={l.href}>
+                  {l.label}
+                </Link>
+              ) : (
+                <NavLink
+                  key={l.label}
+                  className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`}
+                  to={l.href}
+                >
+                  {l.label}
+                </NavLink>
+              )
+            )}
           </nav>
 
           <div className="nav-right">
-            <a className="nav-link" href="#signin">
+            <Link className="nav-link" to="/contact">
               Sign in
-            </a>
-            <a className="btn btn-primary" href="#start">
+            </Link>
+            <Link className="btn btn-primary" to="/pricing">
               Get started
-            </a>
+            </Link>
             <button
               className="menu-btn"
               aria-label="Menu"
@@ -73,13 +84,13 @@ export default function Nav() {
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
           >
             {links.map((l) => (
-              <a key={l.label} href={l.href} onClick={() => setOpen(false)}>
+              <Link key={l.label} to={l.href} onClick={() => setOpen(false)}>
                 {l.label}
-              </a>
+              </Link>
             ))}
-            <a href="#start" onClick={() => setOpen(false)}>
+            <Link to="/pricing" onClick={() => setOpen(false)}>
               Get started
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
