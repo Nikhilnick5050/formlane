@@ -483,6 +483,7 @@ export function Footer() {
             <span className="dot" /> All systems operational
           </span>
         </div>
+        <p className="footer-made">Made by ChatGPT</p>
       </div>
     </footer>
   )
